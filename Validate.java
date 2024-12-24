@@ -1,14 +1,13 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Validate {
     static Scanner sc = new Scanner(System.in);
 
     // Options
-    public static String[][] backendBoard = {
-            {"TL", "T", "TR"},
-            {"L", "M", "R"},
-            {"BL", "B", "BR"}
+    public static String[][] backEndBoard = {
+            {"TL ", " T ", "TR "},
+            {" L ", " M ", " R "},
+            {"BL ", " B ", "BR "}
     };
 
     public static boolean isValid(String[][] board) {
@@ -41,10 +40,10 @@ public class Validate {
             System.out.print("\nEnter the space you would like to select: ");
             input = sc.nextLine().trim(); // User inputs their selection
             if (isLetters(input)) {
-                for (int i = 0; i < backendBoard.length; i++) { // Loops that verifies that the input exists
-                    for (int j = 0; j < backendBoard[i].length; j++) {
+                for (int i = 0; i < backEndBoard.length; i++) { // Loops that verifies that the input exists
+                    for (int j = 0; j < backEndBoard[i].length; j++) {
                         slot[0] = i; slot[1] = j;
-                        if (input.equalsIgnoreCase(backendBoard[i][j]) && !Utilities.isClaimed(board, slot)) { // checks if it exists and is claimed or not
+                        if (input.equalsIgnoreCase(backEndBoard[i][j].trim()) && !Utilities.isClaimed(board, slot)) { // checks if it exists and is claimed or not
                             return slot;
                         }
                     }
@@ -56,12 +55,36 @@ public class Validate {
 
     public static boolean isLetters(String input) {
         try {
-            Double.parseDouble(input);
-            System.out.println("Invalid input");
+            Double.parseDouble(input); // Tries to convert input into double
+            System.out.println("Invalid input"); // if it's anything but numbers
             return false;
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { // If it is a string
+            for (int i = 0; i < input.length(); i++) { // It verifies that there are only letters
+                if (!Character.isLetter(input.charAt(i))) {
+                    System.out.println("Invalid input");
+                    return false;
+                }
+            }
             return true;
         }
     }
 
+    public static int selectOption() {
+        int number = 0;
+        boolean valid = false;
+        final String TITLE = "\nWelcome to TicTacToe! What would you like to do?";
+        final String OPTIONS = "\n1. Play game\n2. Reference board\n3. Exit\n";
+        String line = Utilities.lineMaker(TITLE);
+
+        while (!valid) {
+            System.out.printf(line + TITLE + line + OPTIONS);
+            try {
+                number = Integer.parseInt(sc.nextLine().trim());
+                valid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input");
+            }
+        }
+        return number;
+    }
 }

@@ -1,22 +1,23 @@
 public class Utilities {
     // Players
-    public static String[] player1 = {"Player 1", "X"};
-    public static String[] player2 = {"Player 2", "O"};
+    public static String[] player1 = {"Player 1", " X "};
+    public static String[] player2 = {"Player 2", " O "};
 
     //board output
     public static String rowSeperator = "-";
-    public static String colSeperator = "\n|%1s|%1s|%1s|\n";
+    public static String colSeperator = "\n|%3s|%3s|%3s|";
 
     public static void assembleBoard(String[][] board) {
-        StringBuilder line = new StringBuilder();
-        for (int j = 0; j < colSeperator.length()/2; j++) {
-            line.append(rowSeperator);
-        }
 
-        System.out.print(line);
         for (int i = 0; i < 3; i++) {
-            System.out.printf(colSeperator, board[i][0], board[i][1], board[i][2]);
-            System.out.print(line);
+            String row = String.format(colSeperator, board[i][0], board[i][1], board[i][2]);
+            String line = lineMaker(row); // creates the seperators
+
+            if (i == 2) { // if statement makes sure there is a line at the end of the board
+                System.out.print(line + row + line);
+            } else {
+                System.out.print(line + row);
+            }
         }
     }
 
@@ -39,5 +40,13 @@ public class Utilities {
             return true;
         }
         return false;
+    }
+
+    public static String lineMaker(String string) {
+        String line = "";
+        for (int j = 0; j < string.length()-1; j++) { // creates the seperators
+            line += rowSeperator;
+        }
+        return "\n" + line;
     }
 }
