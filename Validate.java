@@ -36,39 +36,32 @@ public class Validate {
     public static int[] spaceSelection(String[][] board) {
         String input;
         int[] slot = new int[2];
-        boolean isValid = false;
 
         do {
             System.out.print("\nEnter the space you would like to select: ");
-            try {
-                input = sc.nextLine().trim(); // User inputs their selection
-                // Loops that verifies that the input exists
-                for (int i = 0; i < backendBoard.length; i++) {
+            input = sc.nextLine().trim(); // User inputs their selection
+            if (isLetters(input)) {
+                for (int i = 0; i < backendBoard.length; i++) { // Loops that verifies that the input exists
                     for (int j = 0; j < backendBoard[i].length; j++) {
                         slot[0] = i; slot[1] = j;
-                        if (input.equalsIgnoreCase(backendBoard[i][j]) && !isClaimed(board, slot)) { // checks if it exists and is claimed or not
-                            isValid = true;
+                        if (input.equalsIgnoreCase(backendBoard[i][j]) && !Utilities.isClaimed(board, slot)) { // checks if it exists and is claimed or not
                             return slot;
                         }
                     }
                 }
-
-                if (!isValid && !isClaimed(board, slot)) { // Message if it doesnt exist
-                    System.out.println("Selected space is invalid");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input");
+                System.out.println("Selected space is either invalid or already claimed.");
             }
-
-        } while (!isValid);
-        return slot;
+        } while (true);
     }
 
-    public static boolean isClaimed(String[][] board, int[] slot) {
-        if (board[slot[0]][slot[1]].equals(Utilities.player1) || board[slot[0]][slot[1]].equals(Utilities.player2)) {
-            System.out.println("This space is already taken!");
+    public static boolean isLetters(String input) {
+        try {
+            Double.parseDouble(input);
+            System.out.println("Invalid input");
+            return false;
+        } catch (NumberFormatException e) {
             return true;
         }
-        return false;
     }
+
 }
