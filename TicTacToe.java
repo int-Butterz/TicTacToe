@@ -12,22 +12,28 @@ public class TicTacToe {
     public static String rowSeperator = "-";
     public static String colSeperator = "\n|%1s|%1s|%1s|\n";
 
-    // Players
-    public static String player1 = "X";
-    public static String player2 = "O";
-
     public static void main(String[] args) {
         program();
     }
 
     public static void program() {
+        int turnCounter = 0;
+        String[] player = new String[2];
+
         while (Validate.isValid(board)) {
             int[] selectedSpace = new int[2];
+            player = Utilities.turnTracker(turnCounter);
 
             assembleBoard();
             selectedSpace = Validate.spaceSelection(board);
+
+            Utilities.updateBoard(board, selectedSpace, player[1]);
+
+            turnCounter++;
         }
-        System.out.println("winner");
+
+        assembleBoard();
+        System.out.printf("\n%s is the winner!", player[0]);
     }
 
 

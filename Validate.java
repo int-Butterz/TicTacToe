@@ -48,7 +48,7 @@ public class Validate {
                         slot[0] = i; slot[1] = j;
                         if (input.equalsIgnoreCase(backendBoard[i][j]) && !isClaimed(board, slot)) { // checks if it exists and is claimed or not
                             isValid = true;
-                            break;
+                            return slot;
                         }
                     }
                 }
@@ -65,7 +65,7 @@ public class Validate {
     }
 
     public static boolean isClaimed(String[][] board, int[] slot) {
-        if (board[slot[0]][slot[1]].equals(TicTacToe.player1) || board[slot[0]][slot[1]].equals(TicTacToe.player2)) {
+        if (board[slot[0]][slot[1]].equals(Utilities.player1) || board[slot[0]][slot[1]].equals(Utilities.player2)) {
             System.out.println("This space is already taken!");
             return true;
         }
