@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class TicTacToe {
-    //board content
-    public static String[][] board = { // I made the base board uneven so that the verifier doesn't count blank spaces as a win
+    // board content
+    public static String[][] board = { // I made the base board values uneven so that the verifier doesn't count blank spaces as a win
             {"", " ", ""},
             {" ", "", " "},
             {" ", "", " "}
@@ -11,6 +11,10 @@ public class TicTacToe {
     //board output
     public static String rowSeperator = "-";
     public static String colSeperator = "\n|%1s|%1s|%1s|\n";
+
+    // Players
+    public static String player1 = "X";
+    public static String player2 = "O";
 
     public static void main(String[] args) {
         program();
