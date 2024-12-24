@@ -33,30 +33,42 @@ public class Validate {
         return true; // Returns true to continue the loop
     }
 
-    public static String[] slotSelection() {
+    public static int[] spaceSelection(String[][] board) {
         String input;
-        String[] slot = new String[2];
+        int[] slot = new int[2];
         boolean isValid = false;
 
         do {
+            System.out.print("\nEnter the space you would like to select: ");
             try {
-                input = sc.nextLine();
-
+                input = sc.nextLine().trim(); // User inputs their selection
+                // Loops that verifies that the input exists
                 for (int i = 0; i < backendBoard.length; i++) {
                     for (int j = 0; j < backendBoard[i].length; j++) {
-                        if (input.equalsIgnoreCase(backendBoard[i][j])) {
-                            slot[0] = Integer.toString(i); slot[1] = Integer.toString(j);
+                        slot[0] = i; slot[1] = j;
+                        if (input.equalsIgnoreCase(backendBoard[i][j]) && !isClaimed(board, slot)) { // checks if it exists and is claimed or not
                             isValid = true;
                             break;
                         }
                     }
                 }
-                System.out.println("Selected slot is invalid");
+
+                if (!isValid && !isClaimed(board, slot)) { // Message if it doesnt exist
+                    System.out.println("Selected space is invalid");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
             }
 
         } while (!isValid);
         return slot;
+    }
+
+    public static boolean isClaimed(String[][] board, int[] slot) {
+        if (board[slot[0]][slot[1]].equals(TicTacToe.player1) || board[slot[0]][slot[1]].equals(TicTacToe.player2)) {
+            System.out.println("This space is already taken!");
+            return true;
+        }
+        return false;
     }
 }

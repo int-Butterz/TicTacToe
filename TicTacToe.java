@@ -22,10 +22,15 @@ public class TicTacToe {
 
     public static void program() {
         while (Validate.isValid(board)) {
+            int[] selectedSpace = new int[2];
+
             assembleBoard();
+            selectedSpace = Validate.spaceSelection(board);
         }
         System.out.println("winner");
     }
+
+
 
     public static void assembleBoard() {
         StringBuilder line = new StringBuilder();
