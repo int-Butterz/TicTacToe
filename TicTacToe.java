@@ -2,10 +2,10 @@ import java.util.Arrays;
 
 public class TicTacToe {
     //board content
-    public static String[][] board = {
-            {" ", " ", " "},
-            {" ", " ", " "},
-            {" ", " ", " "}
+    public static String[][] board = { // I made the base board uneven so that the verifier doesn't count blank spaces as a win
+            {"", " ", ""},
+            {" ", "", " "},
+            {" ", "", " "}
     };
 
     //board output
@@ -13,7 +13,14 @@ public class TicTacToe {
     public static String colSeperator = "\n|%1s|%1s|%1s|\n";
 
     public static void main(String[] args) {
-        assembleBoard();
+        program();
+    }
+
+    public static void program() {
+        while (Validate.isValid(board)) {
+            assembleBoard();
+        }
+        System.out.println("winner");
     }
 
     public static void assembleBoard() {
