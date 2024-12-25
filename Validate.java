@@ -37,7 +37,7 @@ public class Validate {
         int[] slot = new int[2];
 
         do {
-            System.out.print("\nEnter the space you would like to select: ");
+            System.out.print("\nEnter the space you would like to claim: ");
             input = sc.nextLine().trim(); // User inputs their selection
             if (isLetters(input)) {
                 for (int i = 0; i < backEndBoard.length; i++) { // Loops that verifies that the input exists
@@ -48,7 +48,7 @@ public class Validate {
                         }
                     }
                 }
-                System.out.println("Selected space is either invalid or already claimed.");
+                System.out.println(Utilities.INVALID_SPACE);
             }
         } while (true);
     }
@@ -56,12 +56,12 @@ public class Validate {
     public static boolean isLetters(String input) {
         try {
             Double.parseDouble(input); // Tries to convert input into double
-            System.out.println("Invalid input"); // if it's anything but numbers
+            System.out.println(Utilities.INVALID_INPUT); // if it's anything but numbers
             return false;
         } catch (NumberFormatException e) { // If it is a string
             for (int i = 0; i < input.length(); i++) { // It verifies that there are only letters
                 if (!Character.isLetter(input.charAt(i))) {
-                    System.out.println("Invalid input");
+                    System.out.println(Utilities.INVALID_INPUT);
                     return false;
                 }
             }
@@ -72,17 +72,15 @@ public class Validate {
     public static int selectOption() {
         int number = 0;
         boolean valid = false;
-        final String TITLE = "\nWelcome to TicTacToe! What would you like to do?";
-        final String OPTIONS = "\n1. Play game\n2. Reference board\n3. Exit\n";
-        String line = Utilities.lineMaker(TITLE);
+        String line = Utilities.lineMaker(Utilities.TITLE);
 
         while (!valid) {
-            System.out.printf(line + TITLE + line + OPTIONS);
+            System.out.printf(line + Utilities.TITLE + line + Utilities.OPTIONS);
             try {
                 number = Integer.parseInt(sc.nextLine().trim());
                 valid = true;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input");
+                System.out.println(Utilities.INVALID_INPUT);
             }
         }
         return number;
