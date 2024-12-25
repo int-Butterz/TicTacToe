@@ -3,7 +3,7 @@ public class Utilities {
     public static String[][] players = {
             {"Player 1", " X ", "0"},
             {"Player 2", " O ", "0"},
-            {"Stalemates", "   ", "0"},
+            {"Stalemates", "", "0"},
     };
     public static final String PLAYER_TURN = "\n%s's turn";
     public static String playerScore = "\n|%-10s|%-10s|%-10s|";

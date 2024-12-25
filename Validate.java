@@ -32,14 +32,6 @@ public class Validate {
         return true; // Returns true to continue the loop
     }
 
-    public static boolean checkStalemate(String[][] board) {
-        if (checkWinner(board)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public static int[] spaceSelection(String[][] board) {
         String input;
         int[] slot = new int[2];
