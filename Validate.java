@@ -10,7 +10,7 @@ public class Validate {
             {"BL ", " B ", "BR "}
     };
 
-    public static boolean isValid(String[][] board) {
+    public static boolean checkWinner(String[][] board) {
         // Checks for rows
         for (int row = 0; row < board.length; row++) {
             if (board[row][0].equals(board[row][1]) && board[row][1].equals(board[row][2])) { // checks the rows
@@ -30,6 +30,14 @@ public class Validate {
             return false; // Returns false to stop the while loop
         }
         return true; // Returns true to continue the loop
+    }
+
+    public static boolean checkStalemate(String[][] board) {
+        if (checkWinner(board)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static int[] spaceSelection(String[][] board) {

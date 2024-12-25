@@ -1,12 +1,10 @@
-import java.util.Arrays;
-
 public class TicTacToe {
     // board content
     public static String[][] board = new String[3][3];
 
     public static void main(String[] args) {
         menu();
-        System.out.println("Thank you for playing!");
+        System.out.println(Utilities.SALUTATIONS);
         Validate.sc.close();
     }
 
@@ -39,20 +37,28 @@ public class TicTacToe {
 
     public static void game() {
         int turnCounter = 0;
-        String[] player = new String[2];
-        Utilities.refreshBoard(board);
+        String[] player;
 
-        while (Validate.isValid(board)) {
+        Utilities.refreshBoard(board);
+        do {
             player = Utilities.turnTracker(turnCounter);
             Utilities.assembleBoard(board);
             int[] selectedSpace = Validate.spaceSelection(board);
             Utilities.updateBoard(board, selectedSpace, player[1]);
             turnCounter++;
-        }
-
+            if (turnCounter == 9) { //checks for stalemates
+                break;
+            }
+        } while (Validate.checkWinner(board));
         Utilities.assembleBoard(board);
-        System.out.printf("\n%s is the winner!", player[0]);
-        scoreTracker(player[0]);
+
+        if (!Validate.checkWinner(board)) {
+            System.out.printf(Utilities.WINNER, player[0]);
+            scoreTracker(player[0]);
+        } else {
+            System.out.println(Utilities.STALEMATE);
+            scoreTracker(Utilities.players[2][0]);
+        }
     }
 
     public static boolean again() {
@@ -78,6 +84,12 @@ public class TicTacToe {
                 Utilities.players[i][2] = String.valueOf(++counter);
             }
         }
-        System.out.printf(Utilities.playerScore, Utilities.players[0][2], Utilities.players[1][2]);
+
+        String head = String.format(Utilities.playerScore, " " + Utilities.players[0][0], Utilities.players[2][0], " " + Utilities.players[1][0]);
+        String body = String.format(Utilities.playerScore, Utilities.players[0][2], Utilities.players[2][2], Utilities.players[1][2]);
+        String line = Utilities.lineMaker(head);
+
+
+        System.out.printf(line + head + line + body + line);
     }
 }

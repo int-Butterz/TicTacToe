@@ -3,9 +3,10 @@ public class Utilities {
     public static String[][] players = {
             {"Player 1", " X ", "0"},
             {"Player 2", " O ", "0"},
+            {"Stalemates", "   ", "0"},
     };
     public static final String PLAYER_TURN = "\n%s's turn";
-    public static String playerScore = "\nScore: %s | %s";
+    public static String playerScore = "\n|%-10s|%-10s|%-10s|";
     //Board Output
     public static String rowSeperator = "-";
     public static String colSeperator = "\n|%3s|%3s|%3s|";
@@ -20,9 +21,12 @@ public class Utilities {
     //Menu
     public static final String TITLE = "\nWelcome to TicTacToe! What would you like to do?";
     public static final String OPTIONS = "\n1. Play game\n2. Reference board\n3. Exit\n";
+    public static final String SALUTATIONS = "\nThank you for playing!";
+    // Victory
+    public static final String WINNER = "\n%s is the winner!\n";
+    public static final String STALEMATE = "\nThe game ended on a stalemate.";
 
     public static void assembleBoard(String[][] board) {
-
         for (int i = 0; i < 3; i++) {
             String row = String.format(colSeperator, board[i][0], board[i][1], board[i][2]);
             String line = lineMaker(row); // creates the seperators
